@@ -6,6 +6,7 @@ Tarea con uso de CSS, HTML y Javascript, con consumo de API publica
 
 **Api utilizada**: Rick and Morty API https://rickandmortyapi.com
 
+**Pagina publicada en**: https://diegoalencastro.github.io/EnciclopediaAPI/
 
 
 
