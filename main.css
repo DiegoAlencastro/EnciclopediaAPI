@@ -1,0 +1,395 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+/* Variables que se usan en toda la pagina web para poder ya seleccionar un color y no estar creandole en cada momentor */
+:root {
+  --dark-color: #4e3535;
+  --red-color: #c25252;
+  --light-color: #fff;
+  --grey-color: #1f1a1a;
+  --yellow-color: #ffc800;
+  --blue-color: #2023dd;
+}
+
+/* Configuraciones iniciales */
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 10px;
+}
+
+body {
+  font-size: 1.5rem;
+  min-height: 110vh;
+  background: white;
+  line-height: 1.6;
+  font-family: 'Brush Script MT', cursive;
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+}
+
+button,
+input {
+  font-family: inherit;
+  font-size: 1.8rem;
+  outline: 0;
+  border: none;
+  background-color: transparent;
+}
+
+li {
+  list-style-type: none;
+}
+
+img {
+  width: 100%;
+  display: block;
+}
+
+/* Configuracion de la carta */
+
+.main-wrapper {
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.app {
+  background-color: var(--dark-color);
+  margin: 2rem;
+  padding: 5rem;
+  border-radius: 6px;
+  color: #fff;
+  box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.5);
+}
+
+/* Configuracion del Encabezado */
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.app-header-title span {
+  color: var(--red-color);
+}
+
+.app-header-search {
+  border: 2px solid var(--grey-color);
+  border-radius: 3rem;
+  padding: 1rem 2rem;
+  position: relative;
+}
+
+.app-header-search .form-control {
+  min-width: 420px;
+  color: #fff;
+}
+
+.app-header-search .search-btn {
+  color: var(--grey-color);
+  font-size: 2.3rem;
+  cursor: pointer;
+}
+
+/* Lista de buscados */
+.search-list {
+  z-index: 10;
+  position: absolute;
+  top: calc(100% + 1rem);
+  left: 0;
+  background-color: var(--light-color);
+  width: 100%;
+  max-height: 400px;
+  overflow-y: scroll;
+}
+
+.search-list::-webkit-scrollbar {
+  width: 7px;
+}
+
+.search-list::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.search-list::-webkit-scrollbar-thumb {
+  background-color: var(--red-color);
+  border-radius: 5px;
+}
+
+.search-list-item {
+  display: flex;
+  align-items: center;
+  background-color: var(--dark-color);
+  padding: 0.4rem 0;
+}
+
+.search-list-item img {
+  width: 60px;
+  margin-right: 2rem;
+}
+
+.search-list-item p {
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* Cuerpo de la aplicación */
+
+.app-body {
+  margin-top: 4rem;
+  height: 600px;
+  overflow-y: scroll;
+}
+
+.app-body::-webkit-scrollbar {
+  width: 7px;
+}
+
+.app-body::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+}
+
+.app-body::-webkit-scrollbar-thumb {
+  background-color: var(--red-color);
+  border-radius: 5px;
+}
+
+/* Menus de Informacion */
+.app-body-tabs-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  padding-bottom: 1.6rem;
+  margin: 2.4rem 0;
+}
+.tab-head-single {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+  font-weight: 500;
+  font-size: 1.9rem;
+  color: #fff;
+  cursor: pointer;
+  transition: all 300ms ease-in-out;
+}
+
+.tab-head-single:hover {
+  opacity: 0.9;
+}
+.tab-head-single.active-tab::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1rem;
+  width: 100%;
+  height: 4px;
+  background-color: white;
+}
+
+/* Contenido de la aplicación */
+.app-body-content{
+    display: grid;
+    grid-template-columns: 2fr 3fr;
+    column-gap: 4rem;
+    margin-right: 2rem;
+}
+
+.app-body-content-thumbnail{
+    width: 100%;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.app-body-content-thumbnail span{
+  text-transform: uppercase;
+  font-size: 3rem;
+}
+
+.app-body-content-list .name{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 3.4rem;
+    font-weight: 500;
+    margin-top: -1.2rem;
+}
+
+.app-body-tabs-body{
+    margin-top: 3.6rem;
+}
+
+/* Informacion del personaje */
+.informacion{
+    display: none;
+}
+
+.informacion li{
+    display: flex;
+    justify-content: space-between;
+    margin: 1.2rem auto;
+    padding:1.2rem;
+    box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.5);
+}
+
+.informacion li div i{
+    color: var(--yellow-color);
+}
+
+.informacion li div span{
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-radius: 7px;
+    padding: 0 1.2rem;
+    font-size: 1.7rem;
+}
+
+.informacion li > span{
+    color: var(--yellow-color);
+    font-weight: 700;
+}
+
+/* Biografía */
+.origen{
+    display: none;
+}
+
+.origen li{
+  margin: 3.2rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.origen li span{
+    text-transform: capitalize;
+    font-weight: 600;
+    font-size: 1.9rem;
+}
+
+.origen li span:first-child{
+  text-transform:capitalize;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--red-color);
+  letter-spacing: 2px;
+  margin-right: 4rem;
+}
+
+.origen li span:last-child{
+    font-weight: 300;
+}
+
+.origen li span:first-child i {
+  color: var(--blue-color);
+  margin-right: 1.4rem;
+}
+
+/* Apariciones */
+
+.locacion{
+    display: none;
+}
+
+.locacion li{
+    margin: 3.2rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.locacion li span:first-child i {
+    color: var(--yellow-color);
+    margin-right: 1.4rem;
+}
+
+.locacion li span:first-child{
+    text-transform:capitalize;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: var(--red-color);
+    letter-spacing: 2px;
+    margin-right: 4rem;
+}
+
+.locacion li span:last-child{
+    font-weight: 600;
+    text-transform: capitalize;
+    border-radius: 2rem;
+    padding: 0 1rem;
+    text-align: right;
+}
+
+/* Para hacer aparecer el submenu */
+.show-tab{
+    display: block;
+}
+
+/* Media Query */
+
+@media screen and (max-width: 1200px) {
+    .app-body-content{
+        grid-template-columns: 1fr 3fr;
+        align-items: center;
+    }
+    .tab-head-single{
+        margin: 1.5rem 0;
+    }
+    
+}
+
+@media screen and (max-width: 1000px) {
+    .app-body-content-list .name{
+        text-align: center;
+        margin-top: 1.8rem;
+    }
+    .app-body-content{
+        grid-template-columns: 1fr;
+        row-gap: 4rem;
+        max-width: 680px;
+        margin-right: auto;
+        margin-left: auto;
+    }
+    .app-body-content-thumbnail{
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    
+}
+
+@media screen and (max-width: 992px) {
+    .app-header{
+        flex-direction: column;
+    }
+    .app-header-search{
+        margin-top: 2.8rem;
+    }
+    
+}
+
+@media screen and (max-width:768px) {
+    .app-body-tabs-head{
+        flex-direction: column;
+    }
+    .app-header-search{
+        display: flex;
+    }
+    .app-header-search .form-control{
+        min-width: auto;
+        color: #fff;
+    }
+    .app-header-search .search-btn{
+        padding-left: 2rem;
+    }
+    .app-body-tabs-body{
+        margin-right: 3rem;
+    }
+    
+}
+
