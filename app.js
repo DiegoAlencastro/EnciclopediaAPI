@@ -61,9 +61,11 @@ const buscarpersonajes = async (searchText) => {
         }
         if (dataApi.error === "There is nothing here") {
             mostrarDatos(dataApi.results);
+            menu.innerHTML = `<p>No hay concidencias con la busqueda</p>`;
         }
     } catch (error) {
         mostrarDatos(dataApi.results);
+        menu.innerHTML = `<p>No hay concidencias con la busqueda</p>`;
     }
 };
 
