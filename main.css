@@ -1,395 +1,229 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,200;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
-
-/* Variables que se usan en toda la pagina web para poder ya seleccionar un color y no estar creandole en cada momentor */
-:root {
-  --dark-color: #4e3535;
-  --red-color: #c25252;
-  --light-color: #fff;
-  --grey-color: #1f1a1a;
-  --yellow-color: #ffc800;
-  --blue-color: #2023dd;
-}
-
 /* Configuraciones iniciales */
-
 * {
-  padding: 0;
-  margin: 0;
   box-sizing: border-box;
+  font-family: Verdana, Arial, Helvetica, sans-serif;
 }
 
-html {
-  font-size: 10px;
+
+.titulo {
+  background-color: #0f0f0f;
+  padding: 15px;
+  text-align: center;
+  color: rgba(17, 236, 17, 0.692);
+  text-shadow: 2px 2px 2px #48eec4
 }
 
-body {
-  font-size: 1.5rem;
-  min-height: 110vh;
-  background: white;
-  line-height: 1.6;
-  font-family: 'Brush Script MT', cursive;
-  display: flex;
-  align-items: center;
-  justify-content: stretch;
-}
-
-button,
-input {
-  font-family: inherit;
-  font-size: 1.8rem;
-  outline: 0;
-  border: none;
-  background-color: transparent;
-}
-
-li {
-  list-style-type: none;
-}
-
-img {
-  width: 100%;
-  display: block;
-}
-
-/* Configuracion de la carta */
-
-.main-wrapper {
-  max-width: 1280px;
-  width: 100%;
-  margin: 0 auto;
-}
-
-.app {
-  background-color: var(--dark-color);
-  margin: 2rem;
-  padding: 5rem;
-  border-radius: 6px;
-  color: #fff;
-  box-shadow: 0px 5px 11px 0px rgba(0, 0, 0, 0.5);
-}
-
-/* Configuracion del Encabezado */
-.app-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.app-header-title span {
-  color: var(--red-color);
-}
-
-.app-header-search {
-  border: 2px solid var(--grey-color);
-  border-radius: 3rem;
-  padding: 1rem 2rem;
-  position: relative;
-}
-
-.app-header-search .form-control {
+.titulo .form-control {
   min-width: 420px;
-  color: #fff;
+  color: rgb(79, 79, 85);
 }
 
-.app-header-search .search-btn {
-  color: var(--grey-color);
-  font-size: 2.3rem;
-  cursor: pointer;
+/*Listado que refleja el resultado de la busqueda */
+.listadoIzquierdo {
+  overflow: auto
 }
 
-/* Lista de buscados */
-.search-list {
-  z-index: 10;
-  position: absolute;
-  top: calc(100% + 1rem);
-  left: 0;
-  background-color: var(--light-color);
+.menu {
+  float: left;
+  width: 20%;
+  text-align: center;
+  border: 1px solid #000;
+  background-color: #0f0f0f;
+}
+
+.menu p {
+  padding: 8px;
+  margin-top: 7px;
+  display: block;
   width: 100%;
-  max-height: 400px;
-  overflow-y: scroll;
+  color: rgb(238, 231, 231);
 }
 
-.search-list::-webkit-scrollbar {
-  width: 7px;
+
+.menu p:hover {
+  background-color: rgba(17, 236, 17, 0.692);
 }
 
-.search-list::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+/*En principal mostramos los detalles del personaje en tablas*/
+.principal {
+  float: left;
+  width: 60%;
+  padding: 0 20px;
 }
 
-.search-list::-webkit-scrollbar-thumb {
-  background-color: var(--red-color);
-  border-radius: 5px;
+
+.principal table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
 }
 
-.search-list-item {
-  display: flex;
-  align-items: center;
-  background-color: var(--dark-color);
-  padding: 0.4rem 0;
+.principal td,
+th {
+  border: 1px solid #0f0f0f;
+  text-align: left;
+  padding: 8px;
 }
 
-.search-list-item img {
-  width: 60px;
-  margin-right: 2rem;
+.principal tr:nth-child(even) {
+  background-color: #c7f1e9;
 }
 
-.search-list-item p {
-  font-weight: 700;
-  cursor: pointer;
+/*Mensje informativo para el usuario*/
+.mensaje {
+  color: rgba(17, 236, 17, 0.692);
 }
 
-/* Cuerpo de la aplicación */
-
-.app-body {
-  margin-top: 4rem;
-  height: 600px;
-  overflow-y: scroll;
+/*Formato de la imagen cuando no hay resultados*/
+.detalles img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
-.app-body::-webkit-scrollbar {
-  width: 7px;
+/*Foto del personaje seleccionado de la lista*/
+.cuadroDerecho {
+  background-color: #48eec4;
+  float: left;
+  width: 20%;
+  padding: 15px;
+  margin-top: 7px;
+  text-align: center;
+  color: #0f0f0f;
 }
 
-.app-body::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+.cuadroDerecho img {
+  max-width: 100%;
+  height: auto;
 }
 
-.app-body::-webkit-scrollbar-thumb {
-  background-color: var(--red-color);
-  border-radius: 5px;
+/*Texto realizado por*/
+.pie {
+  text-align: center;
+  padding: 10px;
+  margin-top: 7px;
+  font-weight: bolder;
 }
 
-/* Menus de Informacion */
-.app-body-tabs-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.1);
-  border-radius: 2px;
-  padding-bottom: 1.6rem;
-  margin: 2.4rem 0;
+/*Un contenedor para poder ordenar el boton*/
+.contenedorBotonEpisodios{
+  padding-top: 25px;
 }
-.tab-head-single {
-  text-transform: uppercase;
-  letter-spacing: 1px;
+
+/*Se le da el formato al boton para ver los episodios*/
+.btnEpisodios {
+  background-color: #199319;
+  color: white;
+  padding: 15px;
+  text-decoration: none;
+}
+
+.btnEpisodios:hover {
+  background-color: #223094;
+}
+
+/*Efecto*/
+.modalmask {
+  position: fixed;
+  font-family: Arial, sans-serif;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 99999;
+  opacity:0;
+  -webkit-transition: opacity 400ms ease-in;
+  -moz-transition: opacity 400ms ease-in;
+  transition: opacity 400ms ease-in;
+  pointer-events: none;
+}
+.modalmask:target {
+  opacity:1;
+  pointer-events: auto;
+}
+
+/*Formato de la ventana creada*/
+.modalbox{
+  width: 700px;
   position: relative;
-  font-weight: 500;
-  font-size: 1.9rem;
-  color: #fff;
-  cursor: pointer;
-  transition: all 300ms ease-in-out;
+  padding: 5px 20px 13px 20px;
+  background: #fff;
+  border-radius:3px;
+  -webkit-transition: all 500ms ease-in;
+  -moz-transition: all 500ms ease-in;
+  transition: all 500ms ease-in;
+   
 }
 
-.tab-head-single:hover {
-  opacity: 0.9;
+/*Movimientos de la pantalla modal*/
+.rotate {
+  margin: 10% auto;
+  -webkit-transform: scale(-5,-5);
+  transform: scale(-5,-5);
 }
-.tab-head-single.active-tab::after {
-  content: "";
+
+.modalmask:target .rotate{     
+  transform: rotate(360deg) scale(1,1);
+      -webkit-transform: rotate(360deg) scale(1,1);
+}
+
+/*Boton de cerrar*/
+.close {
+  background: #606061;
+  color: #FFFFFF;
+  line-height: 25px;
   position: absolute;
-  left: 0;
-  bottom: -1rem;
-  width: 100%;
-  height: 4px;
-  background-color: white;
+  right: 1px;
+  text-align: center;
+  top: 1px;
+  width: 24px;
+  text-decoration: none;
+  font-weight: bold;
+  border-radius:3px;
+
 }
 
-/* Contenido de la aplicación */
-.app-body-content{
-    display: grid;
-    grid-template-columns: 2fr 3fr;
-    column-gap: 4rem;
-    margin-right: 2rem;
+.close:hover {
+  background: #FAAC58;
+  color:#222;
 }
 
-.app-body-content-thumbnail{
+/*Formato para el boton de episodios use la pagina https://www.bestcssbuttongenerator.com/*/
+.botonEpisodio {
+	box-shadow:inset 0px 0px 0px 0px #d9fbbe;
+	background:linear-gradient(to bottom, #b8e356 5%, #a5cc52 100%);
+	background-color:#b8e356;
+	border-radius:19px;
+	border:5px solid #83c41a;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 8px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #86ae47;
+}
+.botonEpisodio:hover {
+	background:linear-gradient(to bottom, #a5cc52 5%, #b8e356 100%);
+	background-color:#a5cc52;
+}
+.botonEpisodio:active {
+	position:relative;
+	top:1px;
+}
+
+
+/*Reasignacion de tamaño*/
+@media only screen and (max-width: 620px) {
+
+  .menu,
+  .principal,
+  .cuadroDerecho {
     width: 100%;
-    border-radius: 6px;
-    overflow: hidden;
+  }
 }
-
-.app-body-content-thumbnail span{
-  text-transform: uppercase;
-  font-size: 3rem;
-}
-
-.app-body-content-list .name{
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-size: 3.4rem;
-    font-weight: 500;
-    margin-top: -1.2rem;
-}
-
-.app-body-tabs-body{
-    margin-top: 3.6rem;
-}
-
-/* Informacion del personaje */
-.informacion{
-    display: none;
-}
-
-.informacion li{
-    display: flex;
-    justify-content: space-between;
-    margin: 1.2rem auto;
-    padding:1.2rem;
-    box-shadow: 0 5px 7px 0 rgba(0, 0, 0, 0.5);
-}
-
-.informacion li div i{
-    color: var(--yellow-color);
-}
-
-.informacion li div span{
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    border-radius: 7px;
-    padding: 0 1.2rem;
-    font-size: 1.7rem;
-}
-
-.informacion li > span{
-    color: var(--yellow-color);
-    font-weight: 700;
-}
-
-/* Biografía */
-.origen{
-    display: none;
-}
-
-.origen li{
-  margin: 3.2rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.origen li span{
-    text-transform: capitalize;
-    font-weight: 600;
-    font-size: 1.9rem;
-}
-
-.origen li span:first-child{
-  text-transform:capitalize;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: var(--red-color);
-  letter-spacing: 2px;
-  margin-right: 4rem;
-}
-
-.origen li span:last-child{
-    font-weight: 300;
-}
-
-.origen li span:first-child i {
-  color: var(--blue-color);
-  margin-right: 1.4rem;
-}
-
-/* Apariciones */
-
-.locacion{
-    display: none;
-}
-
-.locacion li{
-    margin: 3.2rem 0;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.locacion li span:first-child i {
-    color: var(--yellow-color);
-    margin-right: 1.4rem;
-}
-
-.locacion li span:first-child{
-    text-transform:capitalize;
-    font-weight: 600;
-    text-transform: uppercase;
-    color: var(--red-color);
-    letter-spacing: 2px;
-    margin-right: 4rem;
-}
-
-.locacion li span:last-child{
-    font-weight: 600;
-    text-transform: capitalize;
-    border-radius: 2rem;
-    padding: 0 1rem;
-    text-align: right;
-}
-
-/* Para hacer aparecer el submenu */
-.show-tab{
-    display: block;
-}
-
-/* Media Query */
-
-@media screen and (max-width: 1200px) {
-    .app-body-content{
-        grid-template-columns: 1fr 3fr;
-        align-items: center;
-    }
-    .tab-head-single{
-        margin: 1.5rem 0;
-    }
-    
-}
-
-@media screen and (max-width: 1000px) {
-    .app-body-content-list .name{
-        text-align: center;
-        margin-top: 1.8rem;
-    }
-    .app-body-content{
-        grid-template-columns: 1fr;
-        row-gap: 4rem;
-        max-width: 680px;
-        margin-right: auto;
-        margin-left: auto;
-    }
-    .app-body-content-thumbnail{
-        max-width: 400px;
-        margin: 0 auto;
-    }
-    
-}
-
-@media screen and (max-width: 992px) {
-    .app-header{
-        flex-direction: column;
-    }
-    .app-header-search{
-        margin-top: 2.8rem;
-    }
-    
-}
-
-@media screen and (max-width:768px) {
-    .app-body-tabs-head{
-        flex-direction: column;
-    }
-    .app-header-search{
-        display: flex;
-    }
-    .app-header-search .form-control{
-        min-width: auto;
-        color: #fff;
-    }
-    .app-header-search .search-btn{
-        padding-left: 2rem;
-    }
-    .app-body-tabs-body{
-        margin-right: 3rem;
-    }
-    
-}
-

@@ -1,114 +1,58 @@
-<html lang="es">
+<!DOCTYPE html>
+<html>
 
 <!-- Cabecera de la pagina web, informacion meta de la pagina-->
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rick and Morty Personajes</title>
     <link rel="stylesheet" href="main.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
+    <!-- Titulo de la pagina web-->
+    <div class="titulo">
+        <h1>PERSONAJES DE "RICK AND MORTY"</h1>
+    </div>
+    <div class="titulo">
+           <!-- formulario de busqueda-->
+        <form class="formularioBusqueda">
+            <input type="text" class="form-control" placeholder="¿Qué personaje quieres buscar?" name="search">
+    </div>
+    </form>
+    </div>
 
-    <div class="main-wrapper">
-        <div class="app">
+    <!-- Listado que se carga con el metodo de busqueda-->
+    <div class="listadoIzquierdo">
+        <div class="menu" id="menu">
+        </div>
 
-            <!-- Encabezado de la pagina web -->
-            <div class="app-header">
-                <h1 class="app-header-title">Personajes de "Rick and Morty"</h1>
-                <form class="app-header-search">
-                    <input type="text" class="form-control" placeholder="Que personaje quieres buscar?" name="search">
-                    <div class="search-list" id="search-list">
-                    </div>
-                </form>
-            </div>
-            <!-- Fin de Encabezado de la pagina web  -->
+        <!-- Contiene el nombre del personaje y sus detalles-->
+        <div class="principal">
+            <div class="mensaje"></div>
+            <div class="detalles"></div>
+            <!-- Hace un llamado par ver los episodios donde sale el personaje-->
+            <div class="contenedorBotonEpisodios"><a class="btnEpisodios" href="#modalEpisodios">Ver episodios</a></div>
+        </div>
 
-            <!-- Cuerpo app-body de la pagina -->
-            <div class="app-body">
-                <div class="app-body-content">
-                    <!-- Foto del personaje -->
-                    <div class="app-body-content-thumbnail">
-                        <span>Morty Smith</span>
-                        <img src="https://rickandmortyapi.com/api/character/avatar/2.jpeg" alt="Imágen de personaje">
-                    </div>
-                    <!-- Fin de Foto del personaje -->
-                    <!-- Información del personaje -->
-                    <div class="app-body-content-list">
-                        <!-- Menú para informacion - origen y ubicacion actual-->
-                        <div class="app-body-tabs-head">
-                            <button type="button" class="tab-head-single" data-id="1">
-                                <span>Información</span>
-                            </button>
-                            <button type="button" class="tab-head-single" data-id="2">
-                                <span>Origen</span>
-                            </button>
-                            <button type="button" class="tab-head-single" data-id="3">
-                                <span>Ubicación Actual</span>
-                            </button>
-                        </div>
-                        <!-- Fin de Menú -->
-                        <div class="app-body-tabs-body">
-                            <!-- Información general del personaje -->
-                            <ul class="tab-body-single informacion">
-                                <li>
-                                    <div>
-                                        <span>
-                                            <i class="fas fa-radiation"></i>
-                                            Status</span>
-                                    </div>
-                                    <span>Alive</span>
-                                </li>
-                                <li>
-                                    <div>
-                                        <span>
-                                            <i class="fas fa-radiation"></i>
-                                            Especie</span>
-                                    </div>
-                                    <span>Human</span>
-                                </li>
-                                <li>
-                                    <div>
-                                        <span>
-                                            <i class="fas fa-radiation"></i>
-                                            Genero</span>
-                                    </div>
-                                    <span>Male</span>
-                                </li>
-                            </ul>
-                            <!-- Fin de la Información general del personaje  -->
-                            <!-- Información de origen del personajen, donde nacio-->
-                            <ul class="tab-body-single origen">
-                                <li>
-                                    <span>
-                                        <i class="fas fa-map-marker-alt"></i>
-                                        Nombre</span>
-                                    <span>unknown</span>
-                                </li>
-                            </ul>
-                            <!-- Fin de la Información de origen del personajen, donde nacio-->
-                            <!-- Información de lugar actual de residencia -->
-                            <ul class="tab-body-single locacion">
-                                <li>
-                                    <span>
-                                        <i class="fas fa-home"></i>
-                                        Nombre
-                                    </span>
-                                    <span>Citadel of Ricks</span>
-                                </li>
-                            </ul>
-                            <!-- Fin de la Información de lugar actual de residencia  -->
-
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <!--Se pondra la imagen que devuelve la API-->
+        <div class="cuadroDerecho">
+            <h3>Foto del personaje</h3>
         </div>
     </div>
-    <!--Script en javascript para poder buscar información-->
+    <div class="pie">Realizado por Diego Alencastro</div>
+    <!--Pantalla modal que nos permite ver los episodios-->
+    <div id="modalEpisodios" class="modalmask">
+        <div class="modalbox rotate">
+            <a href="#close" title="Close" class="close">X</a>
+            <h2>Episodios</h2>
+        </div>
+    </div>
+
     <script src="app.js"></script>
+
 </body>
+
+
 </html>

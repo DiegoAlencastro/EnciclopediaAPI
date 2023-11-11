@@ -1,166 +1,188 @@
-// Inicializar constantes y llenarlas con los datos del body y del header de los menus
-const allTabsBody = document.querySelectorAll(".tab-body-single");
-const allTabsHead = document.querySelectorAll(".tab-head-single");
-
-//Indica cual menu esta activo, en este caso es informacion
-let activeTab = 1;
-
-//Funcion que se genera cada que se inicializa la app
-const init = () => {
-  showActiveTabBody();
-  showActiveTabHead();
-};
-
-//Muestra el menu
-const showActiveTabHead = () => {
-  allTabsHead[activeTab - 1].classList.add("active-tab");
-};
-
-//Muestra la informacion
-const showActiveTabBody = () => {
-  hideAllTabBody();
-  allTabsBody[activeTab - 1].classList.add("show-tab");
-};
-
-//Bloquea la informacion
-const hideAllTabBody = () => {
-  allTabsBody.forEach((singleTabBody) =>
-    singleTabBody.classList.remove("show-tab")
-  );
-};
-
-//Desactiva el menu
-const hideAllTabHead = () => {
-  allTabsHead.forEach((singleTabHead) =>
-    singleTabHead.classList.remove("active-tab")
-  );
-};
-
-//Funcion de escucha de cuando se inicializa
-window.addEventListener("DOMContentLoaded", () => init());
-
-//Funcion para cambiar el menu y el contenido activos
-allTabsHead.forEach((singleTabHead) => {
-  singleTabHead.addEventListener("click", () => {
-    hideAllTabHead();
-    activeTab = singleTabHead.dataset.id;
-    showActiveTabHead();
-    showActiveTabBody();
-  });
-});
-
-
-//Creacion de variables que carguen la informacion del search y la lista de busqueda y variable vacia para cargar todos los datos de la API
-const searchForm = document.querySelector(".app-header-search");
-let searchList = document.getElementById("search-list");
+//Variables a utilizar en el aplicativo
 let dataApi;
+const formBusqueda = document.querySelector(".formularioBusqueda");
+//Obtenemos el menu, donde va estar la lista de personajes
+let menu = document.getElementById("menu");
 
-//Busqueda por nombre de los personajes de la serie
-const fetchCharacters = async (searchText) => {
-  let url = `https://rickandmortyapi.com/api/character/?name=${searchText}`;
-  try {
-    const response = await fetch(url);
-    dataApi = await response.json();
-    if (dataApi.error === undefined) {
-      showSearchList(dataApi.results);
-    }
-  } catch (error) {
-    console.log(error);
-  }
+//Al iniciar la aplicacion se carga una lista de datos
+window.addEventListener("DOMContentLoaded", () => initData());
+
+//Se va a buscar por defecto el filtro en los parametros
+const initData = () => {
+    buscarpersonajes("rick");
+
 };
 
-//Mostrar lista de busqueda
-const showSearchList = (data) => {
-  searchList.innerHTML = "";
-  data.forEach((dataItem) => {
-    const divElem = document.createElement("div");
-    divElem.classList.add("search-list-item");
-    divElem.innerHTML = `<div class="search-list-item">
-        <img src="${
-          dataItem.image ? dataItem.image : ""
-        }" alt="Imágen de busqueda super héroe">
-        <p data-id = "${dataItem.id}" >${dataItem.name}</p>
-    </div>`;
-    searchList.appendChild(divElem);
-  });
+//Se va a buscar por defecto el filtro en los parametros
+formBusqueda.search.addEventListener("keyup", () => {
+    if (formBusqueda.search.value.length > 1) {
+        buscarpersonajes(formBusqueda.search.value);
+    } else {
+        menu.innerHTML = `<p>No hay concidencias con la busqueda</p>`;
+        mostrarDatos(undefined);
+    }
+});
+
+//Muestra la lista lateral con el resultado
+const mostrarResultadoBusqueda = (data) => {
+    menu.innerHTML = "";
+    for (let index = 0; index < data.length; index++) {
+        const element = data[index];
+        const divElem = document.createElement("div");
+        divElem.innerHTML = `<p data-id = "${element.id}" >${element.name}</p>`;
+        menu.appendChild(divElem);
+        if (index === 7) {
+            break;
+        }
+    }
 };
 
-//Busqueda sin necesidad de apretar, reconoce cada vez que se presiona una tecla del teclado y que sea mas de una letra
-searchForm.search.addEventListener("keyup", () => {
-  if (searchForm.search.value.length > 1) {
-    fetchCharacters(searchForm.search.value);
-  } else {
-    searchList.innerHTML = "";
-  }
+//Añade el evento para que cada item del menu indique la informacion
+menu.addEventListener("click", (event) => {
+    let searchId = event.target.dataset.id;
+    let singleData;
+    dataApi.results.forEach((dataItem) => {
+        if (dataItem.id == searchId) {
+            singleData = dataItem;
+        }
+    });
+    mostrarDatos(singleData);
 });
 
-//Escoger un personaje de la lista buscada para cargar informacion en pantalla, y en las pestañas
-searchList.addEventListener("click", (event) => {
-  let searchId = event.target.dataset.id;
-  let singleData;
-  dataApi.results.forEach((dataItem) => {
-    if (dataItem.id == searchId) {
-      singleData = dataItem;
+//Es el consumo de la API mediante fetch
+const buscarpersonajes = async (searchText) => {
+    let url = `https://rickandmortyapi.com/api/character/?name=${searchText}`;
+    try {
+        const response = await fetch(url);
+        dataApi = await response.json();
+        if (dataApi.error === undefined) {
+            mostrarResultadoBusqueda(dataApi.results);
+            mostrarDatos(dataApi.results[0]);
+        }
+        if (dataApi.error === "There is nothing here") {
+            mostrarDatos(dataApi.results);
+        }
+    } catch (error) {
+        mostrarDatos(dataApi.results);
     }
-  });
-  showDetails(singleData);
-  searchList.innerHTML = "";
-});
+};
 
-//Rellena de informacion del personaje seleccionado previamente
-const showDetails = (data) => {
+//Al seleccionar un elemento se muestra en la pantalla
+const mostrarDatos = (data) => {
 
-  document.querySelector(
-    ".app-body-content-thumbnail"
-  ).innerHTML = `<span>"${data.name}"</span>
-                 <img src="${data.image}" alt="${data.name}"/>`;
+    if (data === undefined) {
 
-  document.querySelector(".informacion").innerHTML = `
-  <li>
-      <div>
-          <span>
-          <i class="fas fa-radiation"></i>
-          Status</span>
-      </div>
-      <span>
-      ${data.status}</span>
-  </li>
-  <li>
-      <div>
-          <span>
-          <i class="fas fa-radiation"></i>
-          Especie</span>
-      </div>
-      <span>${data.species}</span>
-  </li>
-  <li>
-      <div>
-          <span>
-          <i class="fas fa-radiation"></i>
-          Genero</span>
-      </div>
-      <span>${data.gender}</span>
-  </li>
-  `;
+        //Si es que no encuentra nada, da una imagen por defecto
+        document.querySelector(
+            ".mensaje"
+        ).innerHTML = `
+            <h2>Tu búsqueda no es de este planeta, o no seleccionaste de manera correct</h2>
+          `;
 
-  document.querySelector(".origen").innerHTML = `
-  <li>
-      <span>
-      <i class="fas fa-map-marker-alt"></i>
-      Nombre</span>
-      <span>${data.origin.name}</span>
-  </li>
-  <li>
-  `;
+        document.querySelector(
+            ".detalles"
+        ).innerHTML = `
+        <img src="https://cdn.dribbble.com/users/1882425/screenshots/4000754/media/cd074c9055a0ca4761b7a2756b3991aa.png" alt="Personaje">  
+        `;
 
-  document.querySelector(".locacion").innerHTML = `
-    <li>
-        <span>
-            <i class="fas fa-home"></i>
-            Nombre
-        </span>
-        <span>${data.location.name}</span>
-    </li>
-    `;
-    
+        document.querySelector(
+            ".cuadroDerecho"
+        ).innerHTML = `
+        <img src="https://cdn.dribbble.com/users/1916180/screenshots/3875427/media/2c0c92969637e9bc9d293152ec783552.jpg" alt="Personaje">  
+        `;
+
+        document.querySelector(
+            ".contenedorBotonEpisodios"
+        ).innerHTML = ``;
+
+    }
+    else {
+        document.querySelector(
+            ".mensaje"
+        ).innerHTML = `
+            <h2>Detalles</h2
+          `;
+
+        document.querySelector(
+            ".detalles"
+        ).innerHTML = `
+        <table>
+            <tr>
+                <td>Status</td>
+                <td>${data.status}</td>
+            </tr>
+            <tr>
+                <td>Especie</td>
+                <td>${data.species}</td>
+            </tr>
+            <tr>
+                <td>Tipo</td>
+                <td>${data.type}</td>
+            </tr>
+            <tr>
+                <td>Genero</td>
+                <td>${data.gender}</td>
+            </tr>
+            <tr>
+                <td>Origen</td>
+                <td>${data.origin.name}</td>
+            </tr>
+            <tr>
+                <td>Posicion actual</td>
+                <td>${data.location.name}</td>
+            </tr>        
+        </table>
+        `;
+
+        document.querySelector(
+            ".cuadroDerecho"
+        ).innerHTML = `
+            <h2>${data.name}</h2>
+            <img src="${data.image}" alt="Personaje">  
+          `;
+
+        document.querySelector(
+            ".contenedorBotonEpisodios"
+        ).innerHTML = `
+        <a class="btnEpisodios" href="#modalEpisodios">Ver episodios</a>
+        `;
+            
+        let listaepisodios='';
+        data.episode.forEach((episodio) => {
+            //De los episodios que devuelve el objeto le saco el ultimo valor, para poder usarlo en el boton
+            const myArray = episodio.split("/");
+            const last = myArray[myArray.length - 1];
+            listaepisodios=listaepisodios+`<button type="button" class="botonEpisodio" onclick="informacionEpisodios('${episodio}')">${last.padStart(2, '0')}</button>`; 
+        });
+
+        document.querySelector(
+            ".modalmask"
+        ).innerHTML = `
+        <div class="modalbox rotate">
+            <a href="#close" title="Close" class="close">X</a>
+            <h2>Episodios</h2>
+            ${listaepisodios}
+            <div class="detalleEpisodio">
+        </div>
+        `;
+
+
+    }
+};
+
+ //Saca la informacion del episodio
+const informacionEpisodios = async (url) => {
+    try {
+        const response = await fetch(url);
+        dataApiEpisodio = await response.json();
+        document.querySelector(
+            ".detalleEpisodio"
+        ).innerHTML = `
+        <h4>${dataApiEpisodio.name}</h4>
+        <h4>${dataApiEpisodio.air_date}</h4>
+        <h4>${dataApiEpisodio.episode}</h4>
+        `;
+    } catch (error) {
+        console.log(error);
+    }
 };
